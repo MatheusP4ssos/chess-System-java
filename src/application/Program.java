@@ -1,10 +1,9 @@
 package application;
 
-import boardgame.Board;
 import boardgame.Position;
+import chess.ChessMatch;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+//classe destinada a testes
 public class Program {
     public static void main(String[] args) {
 
@@ -17,7 +16,7 @@ public class Program {
         System.out.println(p3.toString());
 
         System.out.println("Board test");
-        Board b = new Board(8, 8);
-        System.out.println(b.toString());
+        ChessMatch chessMatch = new ChessMatch();
+        UI.printBoard(chessMatch.getPieces());
     }
 }

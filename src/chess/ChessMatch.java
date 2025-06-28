@@ -15,6 +15,7 @@ public class ChessMatch {
     public ChessMatch() {
         // Cria um novo tabuleiro 8x8 (padrão do xadrez)
         board = new Board(8, 8);
+        //Organiza as peças na partida
         initialSetup();
     }
 
@@ -33,9 +34,10 @@ public class ChessMatch {
         return mat;
     }
 
+    // Cria um setup inicial colocando as peças em sua respectiva posição no tabuleiro
     private void initialSetup(){
         board.placePiece(new Rook(board, Color.WHITE), new Position(2,1));
-        board.placePiece((new King(board, Color.BLACK)), new Position(0,4));
+        board.placePiece((new King(board, Color.BLACK)), new Position(2,1));
         board.placePiece((new King(board, Color.WHITE)), new Position(7,4));
     }
 

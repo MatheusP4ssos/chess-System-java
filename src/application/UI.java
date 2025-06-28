@@ -1,5 +1,6 @@
 package application;
 
+import chess.ChessMatch;
 import chess.ChessPiece;
 
 public class UI {
@@ -36,6 +37,7 @@ public class UI {
         }
         // Adiciona um espaço após cada peça para formatação
         System.out.print(" ");
+
     }
 }
 

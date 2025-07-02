@@ -11,6 +11,7 @@ public class ChessPosition {
 
     // Construtor que valida se a posição está dentro dos limites do tabuleiro
     public ChessPosition(char column, int row) {
+        column = Character.toLowerCase(column);
         // Verifica se a coluna está entre 'a' e 'h' e se a linha está entre 1 e 8
         if (column < 'a' || column > 'h' || row < 1 || row > 8)
             throw new ChessException("Error instantiating ChessPosition. Valid values are: a1 to h8.");

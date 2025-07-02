@@ -4,7 +4,7 @@ import boardgame.Board;
 import boardgame.Piece;
 
 // Classe que representa uma peça de xadrez, estendendo a classe genérica Piece
-public class ChessPiece extends Piece {
+public abstract class ChessPiece extends Piece {
     // Atributo que armazena a cor da peça (PRETO ou BRANCO)
     private Color color;
 

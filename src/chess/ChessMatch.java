@@ -34,6 +34,12 @@ public class ChessMatch {
         return mat;
     }
 
+    public boolean[][] possibleMoves(ChessPosition sourcePosition){
+        Position position = sourcePosition.toPosition();
+        validateSourcePosition(position);
+        return board.piece(position).possibleMoves();
+    }
+
     // Método que executa um movimento de xadrez a partir de uma posição fonte para uma posição destino
     // Retorna a peça capturada, se houver
     public ChessPiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {

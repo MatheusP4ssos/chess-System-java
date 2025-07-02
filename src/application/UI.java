@@ -5,8 +5,10 @@ import chess.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// Classe responsável pela interface do usuário no console
 public class UI {
 
+    // Códigos ANSI para cores do texto
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -17,6 +19,7 @@ public class UI {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
+    // Códigos ANSI para cores de fundo
     public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
     public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
     public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
@@ -26,6 +29,15 @@ public class UI {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
+    //Limpa a tela do console
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    // Método que lê uma posição do xadrez inserida pelo usuário
+    // Formato esperado: letra (a-h) seguida de número (1-8)
+    // Lança InputMismatchException se o formato for inválido
     public static ChessPosition readChessPosition(Scanner sc) {
         try {
             String s = sc.nextLine();

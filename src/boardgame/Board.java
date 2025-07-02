@@ -51,15 +51,19 @@ public class Board {
         return pieces[position.getRow()][position.getColumn()];
     }
 
+    // Método para colocar uma nova peça em uma posição específica do tabuleiro
+    // Lança uma exceção se já existir uma peça na posição
     public void placeNewPiece(Piece piece, Position position) {
-        if (thereIsAPiece(position))
+        if (thereIsAPiece(position))//Garante que não tenha uma peça na posição solicitada
             throw new BoardException("There is already a piece in that position " + position);
         pieces[position.getRow()][position.getColumn()] = piece;
         piece.position = position;
     }
 
+    // Método para remover uma peça de uma posição específica do tabuleiro
+    // Retorna a peça removida ou null se não houver peça na posição
     public Piece removePiece(Position position) {
-        if (!positionExists(position)) {
+        if (!positionExists(position)) { //Garante que a posição exista no tabuleiro
             throw new BoardException("Position not on the board");
         }
         if (piece(position) == null) {

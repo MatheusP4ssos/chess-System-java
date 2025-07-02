@@ -2,7 +2,6 @@ package chess;
 
 import boardgame.Board;
 import boardgame.Piece;
-import boardgame.Position;
 
 // Classe que representa uma peça de xadrez, estendendo a classe genérica Piece
 public class ChessPiece extends Piece {

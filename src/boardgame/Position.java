@@ -35,10 +35,9 @@ public class Position {
     }
 
     // Método para atualizar os valores de linha e coluna de uma vez
-    public int setValues(int row, int column){
+    public void setValues(int row, int column){
         this.row = row;
         this.column = column;
-        return 0;
     }
 
     // Sobrescrita do método toString para representação textual da posição

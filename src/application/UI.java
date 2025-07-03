@@ -49,6 +49,15 @@ public class UI {
         }
     }
 
+     // Imprime o estado atual da partida
+    // turno atual + com da peça que joga no turno
+    public static void printMatch(ChessMatch chessMatch) {
+        printBoard(chessMatch.getPieces());
+        System.out.println();
+        System.out.println("Turn : " + chessMatch.getTurn());
+        System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
+    }
+
     // Método que recebe a matriz de peças e imprime o tabuleiro
     public static void printBoard(ChessPiece[][] pieces) {
         // Loop para percorrer as linhas do tabuleiro (8 até 1)
@@ -68,6 +77,7 @@ public class UI {
         System.out.println("  a b c d e f g h");
     }
 
+    // Imprime o tabuleiro destacando movimentos possíveis
     public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves) {
         for (int i = 0; i < pieces.length; i++) {
             System.out.print((8 - i) + " ");
@@ -86,12 +96,10 @@ public class UI {
         }
         if (piece == null) {
             System.out.print("-" + ANSI_RESET);
-        }
-        else {
+        } else {
             if (piece.getColor() == Color.WHITE) {
                 System.out.print(ANSI_WHITE + piece + ANSI_RESET);
-            }
-            else {
+            } else {
                 System.out.print(ANSI_YELLOW + piece + ANSI_RESET);
             }
         }

@@ -8,6 +8,10 @@ import chess.pieces.Rook;
 
 // Classe que representa uma partida de xadrez
 public class ChessMatch {
+
+    private int turn;
+    private Color currentPlayer;
+
     // Referência ao tabuleiro da partida
     private Board board;
 
@@ -16,8 +20,21 @@ public class ChessMatch {
         // Cria um novo tabuleiro 8x8 (padrão do xadrez)
         board = new Board(8, 8);
         //Organiza as peças na partida
+        turn = 1; //incia o turno com 1
+        currentPlayer = Color.WHITE; //primeiro a jogar = peça branca
         initialSetup();
     }
+
+    // Método que retorna o número do turno atual
+    public int getTurn() {
+        return turn;
+    }
+
+    // Método que retorna a cor do jogador atual
+    public Color getCurrentPlayer() {
+        return currentPlayer;
+    }
+
 
     // Método que retorna a matriz de peças da partida
     public ChessPiece[][] getPieces() {
@@ -34,7 +51,9 @@ public class ChessMatch {
         return mat;
     }
 
-    public boolean[][] possibleMoves(ChessPosition sourcePosition){
+    // Método que retorna uma matriz com os movimentos possíveis para uma peça
+    // Recebe a posição de origem no formato do xadrez
+    public boolean[][] possibleMoves(ChessPosition sourcePosition) {
         Position position = sourcePosition.toPosition();
         validateSourcePosition(position);
         return board.piece(position).possibleMoves();
@@ -48,6 +67,7 @@ public class ChessMatch {
         validateSourcePosition(source);
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target);
+        nextTurn();
         return (ChessPiece) capturedPiece;
     }
 
@@ -61,24 +81,37 @@ public class ChessMatch {
         return capturedPiece;
     }
 
-     // Método que valida se existe uma peça na posição informada
+    // Método que valida se existe uma peça na posição informada
     // Lança uma exceção caso não exista peça na posição informada
     private void validateSourcePosition(Position position) {
         if (!board.thereIsAPiece(position)) {
             throw new ChessException("There is no piece on source position");
         }
-        if (!board.piece(position).isThereAnyPossibleMove()){
+        if (currentPlayer != ((ChessPiece)board.piece(position)).getColor()) {
+            throw new ChessException("It's not the current player's turn");
+        }
+        if (!board.piece(position).isThereAnyPossibleMove()) {
             throw new ChessException("There is no possible move for the chosen piece");
         }
     }
 
+    // Método que valida se a posição de destino é válida para a peça selecionada
+    // Lança uma exceção se o movimento não for possível
     private void validateTargetPosition(Position source, Position target) {
-        if (!board.piece(source).possibleMove(target)){
+        if (!board.piece(source).possibleMove(target)) {
             throw new ChessException("The chosen piece can't move to the target position");
         }
     }
 
-     // Método auxiliar para facilitar a colocação de uma nova peça no tabuleiro
+
+    // Método que passa a vez para o próximo jogador
+    // Incrementa o turno e alterna entre as cores branca e preta
+    private void nextTurn() {
+        turn++;
+        currentPlayer = currentPlayer == Color.WHITE ? Color.BLACK : Color.WHITE;
+    }
+
+    // Método auxiliar para facilitar a colocação de uma nova peça no tabuleiro
     // Recebe a coluna, linha e a peça a ser posicionada
     private void placeNewPiece(char column, int row, ChessPiece piece) {
         board.placeNewPiece(piece, new ChessPosition(column, row).toPosition());

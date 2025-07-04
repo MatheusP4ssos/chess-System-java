@@ -21,7 +21,7 @@ public class Program {
         ChessMatch chessMatch = new ChessMatch();
 
         // Loop principal do jogo
-        while (true) {
+        while (!chessMatch.getCheckmate()) {
             try {
                 // Limpa a tela e mostra o estado atual
                 UI.clearScreen();
@@ -58,5 +58,7 @@ public class Program {
                 sc.nextLine();
             }
         }
+        UI.clearScreen();
+        UI.printMatch(chessMatch, captured);
     }
 }

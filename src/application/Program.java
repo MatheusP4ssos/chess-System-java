@@ -59,6 +59,6 @@ public class Program {
             }
         }
         UI.clearScreen();
-        UI.prindtMatch(chessMatch, captured);
+        UI.printMatch(chessMatch, captured);
     }
 }

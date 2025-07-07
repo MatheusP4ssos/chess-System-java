@@ -9,6 +9,8 @@ public abstract class ChessPiece extends Piece {
     // Atributo que armazena a cor da peça (PRETO ou BRANCO)
     private Color color;
 
+    private int moveCount;
+
     // Construtor que recebe o tabuleiro e a cor da peça
     public ChessPiece(Board board, Color color) {
         // Chama o construtor da superclasse (Piece) passando o tabuleiro
@@ -20,6 +22,19 @@ public abstract class ChessPiece extends Piece {
     // Método getter para acessar a cor da peça (sem setter para tornar imutável)
     public Color getColor() {
         return color;
+    }
+
+    public int getMoveCount() {
+        return moveCount;
+    }
+
+    public void increaseMoveCount() {
+        moveCount++;
+    }
+
+
+    public int decreaseMoveCount() {
+        return moveCount--;
     }
 
     public ChessPosition getChessPosition() {

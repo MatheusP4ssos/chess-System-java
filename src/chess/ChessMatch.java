@@ -95,7 +95,7 @@ public class ChessMatch {
             checkmate = true;
         }
 
-            nextTurn();
+        nextTurn();
         return (ChessPiece) capturedPiece;
     }
 
@@ -103,7 +103,8 @@ public class ChessMatch {
 // Remove a peça da posição origem, captura a peça na posição destino (se existir)
 // e coloca a peça movida na posição destino
     private Piece makeMove(Position source, Position target) {
-        Piece p = board.removePiece(source);
+        ChessPiece p = (ChessPiece) board.removePiece(source);
+        p.increaseMoveCount();
         Piece capturedPiece = board.removePiece(target);
         board.placeNewPiece(p, target);
 
@@ -117,7 +118,8 @@ public class ChessMatch {
 
     // Método para desfazer o movimento caso o jogador se ponha em cheque
     private void undoMove(Position source, Position target, Piece capturedPiece) {
-        Piece p = board.removePiece(target);
+        ChessPiece p = (ChessPiece)board.removePiece(target);
+        p.decreaseMoveCount();
         board.placeNewPiece(p, source);
         if (capturedPiece != null) {
             board.placeNewPiece(capturedPiece, target);

@@ -5,7 +5,6 @@ import boardgame.Piece;
 import boardgame.Position;
 import chess.pieces.*;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -103,7 +102,7 @@ public class ChessMatch {
         //#specialmove promotion
         promotedPiece = null;
         if (movedPiece instanceof Pawn) {
-            if ((movedPiece.getColor() == Color.WHITE && target.getRow() ==0) || (movedPiece.getColor() == Color.BLACK && target.getRow() ==7)) {
+            if ((movedPiece.getColor() == Color.WHITE && target.getRow() == 0) || (movedPiece.getColor() == Color.BLACK && target.getRow() == 7)) {
                 promotedPiece = (ChessPiece) board.piece(target);
                 promotedPiece = replacePromotedPiece("Q");
             }
@@ -133,7 +132,7 @@ public class ChessMatch {
             throw new IllegalStateException("There is no piece to be promoted");
         }
         if (!type.equals("Q") && !type.equals("B") && !type.equals("N") && !type.equals("R")) {
-            throw new InvalidParameterException("The piece to be promoted must be a queen, bishop, knight or rook");
+            return promotedPiece;
         }
         Position pos = promotedPiece.getChessPosition().toPosition();
         Piece p = board.removePiece(pos);
@@ -156,7 +155,7 @@ public class ChessMatch {
         } else if (type.equals("R")) {
             return new Rook(board, color);
         } else {
-            throw new InvalidParameterException("The piece to be promoted must be a queen, bishop, knight or rook");
+            return promotedPiece;
         }
     }
 
@@ -198,9 +197,8 @@ public class ChessMatch {
                 Position pawnPosition;
                 if (p.getColor() == Color.WHITE) {
                     pawnPosition = new Position(target.getRow() + 1, target.getColumn());
-                }
-                else {
-                    pawnPosition = new Position(target.getRow() -1, target.getColumn());
+                } else {
+                    pawnPosition = new Position(target.getRow() - 1, target.getColumn());
                 }
                 capturedPiece = board.removePiece(pawnPosition);
                 capturesPieces.add(capturedPiece);
@@ -208,7 +206,7 @@ public class ChessMatch {
             }
         }
 
-            return capturedPiece;
+        return capturedPiece;
     }
 
     // Método para desfazer o movimento caso o jogador se ponha em cheque
@@ -243,12 +241,11 @@ public class ChessMatch {
         //specialmove en passant
         if (p instanceof Pawn) {
             if (source.getColumn() != target.getColumn() && capturesPieces == enPassantVulnerable) {
-                ChessPiece pawn = (ChessPiece)board.removePiece(target);
+                ChessPiece pawn = (ChessPiece) board.removePiece(target);
                 Position pawnPosition;
                 if (p.getColor() == Color.WHITE) {
                     pawnPosition = new Position(3, target.getColumn());
-                }
-                else {
+                } else {
                     pawnPosition = new Position(4, target.getColumn());
                 }
                 board.placeNewPiece(pawn, pawnPosition);
